@@ -52,7 +52,7 @@ process RAIZ {
            path phyloTree
            path sspids
         
-    output: path 'gproot_NOG40170_9606LCAs.pdf'
+    output: path 'gproot_COG0085_9606LCAs.pdf'
             path 'gproot_9606LCAs.pdf'
 
     script:
@@ -75,7 +75,7 @@ process RAIZ {
     res <- groot.get(ogr, what="results")
     head(res)
 
-    groot.plot(ogr, whichOG="NOG40170")
+    groot.plot(ogr, whichOG="COG0085")
 
     groot.plot(ogr, plot.lcas = TRUE)
     """
@@ -85,6 +85,7 @@ workflow {
     METRICAS(params.cogdata_file,params.cogdata_file) 
     RAIZ(METRICAS.out[1],METRICAS.out[2],METRICAS.out[3]) 
 }
+
 workflow.onComplete {
     log.info ( workflow.success ? "\nVocê é uma máquina de vencer! :)" : "\nO fracasso é inevitável! :(" )
 }
