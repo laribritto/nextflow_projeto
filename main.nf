@@ -1,5 +1,5 @@
 params.results = 'resultados'
-params.cogdata_file = '$projectDir/cogs (1).rda'
+params.cogs_file = '$projectDir/cogs (1).rda'
 params.cogs_of_interest_file = '$projectDir/cogs_of_interest (1).csv'
 
 process METRICAS {
