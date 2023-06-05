@@ -22,7 +22,7 @@ process METRICAS {
     library(tidyr)
     library(ggplot2)
     load('$cogs.rda')
-    load("$cogs_of_interest')
+    load('$cogs_of_interest')
 
     ogp <- gplast.preprocess(cogdata=cogs, sspids=sspids, cogids=cogs_of_interest, verbose=TRUE)
     ogp <- gplast(ogp, verbose=FALSE)
