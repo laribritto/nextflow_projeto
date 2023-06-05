@@ -1,6 +1,6 @@
 params.results = 'resultados'
 params.cogdata_file = '$projectDir/cogs (1).rda'
-params.cogs_of_interest = '$projectDir/cogs_of_interest (1).csv'
+params.cogs_of_interest_file = '$projectDir/cogs_of_interest (1).csv'
 
 process METRICAS {
     publishDir "$params.results/resultados", mode: 'copy'
@@ -82,7 +82,7 @@ process RAIZ {
 }
 
 workflow {
-    METRICAS(params.cogdata_file,params.cogdata_file) 
+    METRICAS(params.cogdata_file,params.cogs_of_interest_file) 
     RAIZ(METRICAS.out[1],METRICAS.out[2],METRICAS.out[3]) 
 }
 
