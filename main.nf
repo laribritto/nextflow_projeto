@@ -82,10 +82,7 @@ process RAIZ {
 }
 
 workflow {
-     Channel
-        .fromFilePairs(params.cogdata_file,params.cogdata_file checkIfExists: true)
-    
-    metricas_ch = METRICAS(params.cogdata_file,params.cogdata_file) 
+    METRICAS(params.cogdata_file,params.cogdata_file) 
     RAIZ(METRICAS.out[1],METRICAS.out[2],METRICAS.out[3]) 
 }
 workflow.onComplete {
