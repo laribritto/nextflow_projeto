@@ -24,8 +24,8 @@ process METRICAS {
     library(geneplast)
     library(tidyr)
     library(ggplot2)
-    load("${cogs}")
-    load("${cogs_of_interest}")
+    load("$cogs")
+    load("$cogs_of_interest")
 
     ogp <- gplast.preprocess(cogdata = cogs, sspids = sspids, cogids = cogs_of_interest, verbose = TRUE)
     ogp <- gplast(ogp, verbose = FALSE)
@@ -70,9 +70,9 @@ process RAIZ {
     library(geneplast)
     library(tidyr)
     library(ggplot2)
-    load("${cogs}")
-    load("${phyloTree}")
-    load("${sspids}")
+    load("$cogs")
+    load("$phyloTree")
+    load("$sspids")
 
     ogr <- groot.preprocess(cogdata = cogs, phyloTree = phyloTree, spid = "9606", verbose = FALSE)
 
