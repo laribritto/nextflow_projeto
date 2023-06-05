@@ -1,6 +1,6 @@
 params.results = 'resultados'
-params.cogdata_file = '$projectDir/cogs.rda'
-params.cogs_of_interest = '$projectDir/cogs_of_interest.csv'
+params.cogdata_file = '$projectDir/cogs (1).rda'
+params.cogs_of_interest = '$projectDir/cogs_of_interest (1).csv'
 
 process METRICAS {
     publishDir "$params.results/resultados", mode: 'copy'
