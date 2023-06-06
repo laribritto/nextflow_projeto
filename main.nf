@@ -1,5 +1,5 @@
 params.results = "resultados"
-params.cogs = "$projectDir/cogdata.rda"
+params.cogs_file = "$projectDir/cogdata.rda"
 
 process METRICAS {
     publishDir "$params.results/resultados", mode: 'copy'
