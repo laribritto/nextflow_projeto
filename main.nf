@@ -12,7 +12,6 @@ process METRICAS {
 
     output:
     path 'grafico.pdf'
-    path 'cogs.rda'
     path 'phyloTree.rda'
     path 'sspids.rda'
 
@@ -43,7 +42,6 @@ process METRICAS {
         scale_fill_grey() +
         theme_bw()
     dev.off()
-    save(cogs, file = "cogs.rda")
     save(phyloTree, file = "phyloTree.rda")
     save(sspids, file = "sspids.rda")
     """
@@ -90,7 +88,7 @@ process RAIZ {
 
 workflow {
     METRICAS(params.cogs_file, params.cogs_of_interest_file)
-    RAIZ(METRICAS.out[2], METRICAS.out[3], METRICAS.out[4])
+    RAIZ(METRICAS.out[1], METRICAS.out[2])
 }
 
 workflow.onComplete {
