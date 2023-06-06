@@ -10,6 +10,9 @@ process METRICAS {
 
     input:
     path cogdata
+    path sspids
+    path cogids
+    path phyloTree
 
     output:
     path 'grafico.pdf'
