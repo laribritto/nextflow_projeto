@@ -1,5 +1,7 @@
 params.results = "resultados"
-params.cogs_file = "$projectDir/cogdata.rda"
+params.cogs = "$projectDir/cogdata.rda"
+params.sspids = "$projectDir/sspids.rda"
+params.cogids = "$projectDir/cogids.rda"
 
 process METRICAS {
     publishDir "$params.results/resultados", mode: 'copy'
@@ -23,6 +25,8 @@ process METRICAS {
     library(tidyr)
     library(ggplot2)
     load("$cogdata")
+    load("$sspids")
+    load("$cogids")
 
     ogp <- gplast.preprocess(cogdata = cogdata, sspids = sspids, cogids = cogids, verbose = TRUE)
     ogp <- gplast(ogp, verbose = FALSE)
@@ -86,7 +90,7 @@ process RAIZ {
 }
 
 workflow {
-    METRICAS(params.cogs_file)
+    METRICAS(params.cogs,params.sspids,params.cogids)
     RAIZ(METRICAS.out[1],METRICAS.out[2], METRICAS.out[3])
 }
 
