@@ -93,7 +93,7 @@ process RAIZ {
 
 workflow {
     METRICAS(params.cogdata,params.sspids,params.cogids)
-    RAIZ(params.cogdata,params.sspids,params.cogids,params.phyloTree)
+    RAIZ(params.cogdata,params.sspids,params.phyloTree)
 }
 
 workflow.onComplete {
