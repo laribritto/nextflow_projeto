@@ -13,6 +13,7 @@ process METRICAS {
     output:
     path 'grafico.pdf'
     path 'phyloTree.rda'
+    path 'cogs.rda'
     path 'sspids.rda'
 
     script:
@@ -44,6 +45,7 @@ process METRICAS {
     dev.off()
     save(phyloTree, file = "phyloTree.rda")
     save(sspids, file = "sspids.rda")
+    save(cogs file = "cogs.rda")
     """
 }
 
@@ -68,9 +70,9 @@ process RAIZ {
     library(geneplast)
     library(tidyr)
     library(ggplot2)
-    load("$cogs")
-    load("$phyloTree")
-    load("$sspids")
+    load("cogs")
+    load("phyloTree")
+    load("sspids")
 
     ogr <- groot.preprocess(cogdata = cogs, phyloTree = phyloTree, spid = "9606", verbose = FALSE)
 
@@ -88,7 +90,7 @@ process RAIZ {
 
 workflow {
     METRICAS(params.cogs_file, params.cogs_of_interest_file)
-    RAIZ(METRICAS.out[1], METRICAS.out[2])
+    RAIZ(METRICAS.out[1],METRICAS.out[2], METRICAS.out[3])
 }
 
 workflow.onComplete {
