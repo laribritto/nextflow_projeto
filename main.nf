@@ -1,19 +1,17 @@
 params.results = "resultados"
-params.cogs_file = "./cogs.rda"
-params.cogs_of_interest_file = "./cogs_of_interest.csv"
+params.cogs_file = "$projectDir/cogdata.rda"
 
 process METRICAS {
     publishDir "$params.results/resultados", mode: 'copy'
     container 'laribritto/geneplast:v1.1'
 
     input:
-    path cogs_of_interest
-    path cogs
+    path cogdata
 
     output:
     path 'grafico.pdf'
     path 'phyloTree.rda'
-    path 'cogs.rda'
+    path 'cogdata.rda'
     path 'sspids.rda'
 
     script:
@@ -24,10 +22,9 @@ process METRICAS {
     library(geneplast)
     library(tidyr)
     library(ggplot2)
-    load("$cogs")
-    load("$cogs_of_interest")
+    load("$cogdata")
 
-    ogp <- gplast.preprocess(cogdata = cogs, sspids = sspids, cogids = cogs_of_interest, verbose = TRUE)
+    ogp <- gplast.preprocess(cogdata = cogdata, sspids = sspids, cogids = cogids, verbose = TRUE)
     ogp <- gplast(ogp, verbose = FALSE)
     res <- gplast.get(ogp, what = "results")
     head(res)
@@ -45,7 +42,7 @@ process METRICAS {
     dev.off()
     save(phyloTree, file = "phyloTree.rda")
     save(sspids, file = "sspids.rda")
-    save(cogs file = "cogs.rda")
+    save(cogdata file = "cogdata.rda")
     """
 }
 
@@ -54,12 +51,12 @@ process RAIZ {
     container 'laribritto/geneplast:v1.1'
 
     input:
-    path cogs
+    path cogdata
     path phyloTree
     path sspids
 
     output:
-    path 'gproot_COG0085_9606LCAs.pdf'
+    path 'gproot_NOG40170_9606LCAs.pdf'
     path 'gproot_9606LCAs.pdf'
 
     script:
@@ -74,7 +71,7 @@ process RAIZ {
     load("phyloTree")
     load("sspids")
 
-    ogr <- groot.preprocess(cogdata = cogs, phyloTree = phyloTree, spid = "9606", verbose = FALSE)
+    ogr <- groot.preprocess(cogdata = cogdata, phyloTree = phyloTree, spid = "9606", verbose = FALSE)
 
     set.seed(1)
     ogr <- groot(ogr, nPermutations = 100, verbose = FALSE)
@@ -82,14 +79,14 @@ process RAIZ {
     res <- groot.get(ogr, what = "results")
     head(res)
 
-    groot.plot(ogr, whichOG = "COG0085")
+    groot.plot(ogr, whichOG = "NOG40170")
 
     groot.plot(ogr, plot.lcas = TRUE)
     """
 }
 
 workflow {
-    METRICAS(params.cogs_file, params.cogs_of_interest_file)
+    METRICAS(params.cogdata_file)
     RAIZ(METRICAS.out[1],METRICAS.out[2], METRICAS.out[3])
 }
 
