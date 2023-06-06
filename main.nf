@@ -1,4 +1,4 @@
-params.results = 'resultados'
+params.results = "resultados"
 params.cogs_file = "$projectDir/cogs.rda"
 params.cogs_of_interest_file = "$projectDir/cogs_of_interest.csv"
 
