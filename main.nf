@@ -1,7 +1,8 @@
 params.results = "resultados"
-params.cogs = "$projectDir/cogdata.rda"
+params.cogdata = "$projectDir/cogdata.rda"
 params.sspids = "$projectDir/sspids.rda"
 params.cogids = "$projectDir/cogids.rda"
+params.phyloTree = "$projectDir/phyloTree.rda"
 
 process METRICAS {
     publishDir "$params.results/resultados", mode: 'copy'
@@ -27,6 +28,7 @@ process METRICAS {
     load("$cogdata")
     load("$sspids")
     load("$cogids")
+     load("$phyloTree")
 
     ogp <- gplast.preprocess(cogdata = cogdata, sspids = sspids, cogids = cogids, verbose = TRUE)
     ogp <- gplast(ogp, verbose = FALSE)
@@ -90,7 +92,7 @@ process RAIZ {
 }
 
 workflow {
-    METRICAS(params.cogs,params.sspids,params.cogids)
+    METRICAS(params.cogdata,params.sspids,params.cogids,params.phyloTree)
     RAIZ(METRICAS.out[1],METRICAS.out[2], METRICAS.out[3])
 }
 
