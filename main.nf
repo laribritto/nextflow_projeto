@@ -86,7 +86,7 @@ process RAIZ {
 }
 
 workflow {
-    METRICAS(params.cogdata_file)
+    METRICAS(params.cogs_file)
     RAIZ(METRICAS.out[1],METRICAS.out[2], METRICAS.out[3])
 }
 
