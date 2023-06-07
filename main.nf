@@ -73,9 +73,9 @@ process RAIZ {
     library(geneplast)
     library(tidyr)
     library(ggplot2)
-    load("cogs")
-    load("phyloTree")
-    load("sspids")
+    load("$cogdata")
+    load("$phyloTree")
+    load("$sspids")
 
     ogr <- groot.preprocess(cogdata = cogdata, phyloTree = phyloTree, spid = "9606", verbose = FALSE)
 
