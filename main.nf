@@ -46,9 +46,6 @@ process METRICAS {
         scale_fill_grey() +
         theme_bw()
     dev.off()
-    save(phyloTree, file = "phyloTree.rda")
-    save(sspids, file = "sspids.rda")
-    save(cogdata file = "cogdata.rda")
     """
 }
 
